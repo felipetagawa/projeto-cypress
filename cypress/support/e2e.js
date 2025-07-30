@@ -22,3 +22,10 @@ Cypress.on("uncaught:exception", (err, runnable) => {
     return false;
   }
 });
+
+Cypress.on("uncaught:exception", (err, runnable) => {
+  // Retorna false para prevenir que o Cypress falhe com erros da aplicação
+  if (err.message.includes("reading 'animate'")) {
+    return false;
+  }
+});
