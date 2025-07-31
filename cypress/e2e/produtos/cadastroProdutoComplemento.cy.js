@@ -4,7 +4,7 @@ describe("Cadastro de produto com complemento", () => {
   });
 
   it("Deve cadastrar um produto com complemento com sucesso", () => {
-    const nomeProduto = `Produto teste ${Date.now()}`; // Nome único baseado em timestamp
+    const nomeProduto = `Produto com complemento${Date.now()}`; // Nome único baseado em timestamp
 
     cy.preencherProdutoBase(nomeProduto); //Preenche os campos base necessários para o cadastro de um produto.
 
@@ -67,5 +67,11 @@ describe("Cadastro de produto com complemento", () => {
     cy.get("#frmDialogs\\:j_idt1156 > .ui-button-text").click();
 
     cy.contains("Complemento salvo com sucesso!").should("be.visible");
+
+    cy.get("iframe#iframe-sz-chat").invoke("css", "display", "none");
+
+    cy.get("#frmDialogs\\:j_idt1177").should("be.visible").click();
+
+    cy.contains("button", "Salvar").should("be.visible").click();
   });
 });
