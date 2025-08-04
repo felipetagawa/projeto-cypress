@@ -16,9 +16,19 @@ Cypress.Commands.add("preencherProdutoBase", (nomeProduto) => {
   cy.get("#frmTabelaProd\\:cref").clear();
   cy.get("#frmTabelaProd\\:marca").type("MARCA TESTE");
   cy.get("#frmTabelaProd\\:unid").clear().type("UN");
-  cy.get("#frmTabelaProd\\:vlcusto").clear().type("1,00");
-  cy.get("#frmTabelaProd\\:vlvenda").clear();
+  cy.get("#frmTabelaProd\\:vlcusto")
+    .clear()
+    .type("1,00")
+    .should("have.value", "1,00");
+  cy.get("#frmTabelaProd\\:vlvenda").as("inputVenda").clear();
+
+  cy.get("@inputVenda").invoke("val", "2,00");
+
   cy.wait(300);
-  cy.get("#frmTabelaProd\\:vlvenda").type("2,00");
+
+  cy.get("@inputVenda").trigger("input");
+
+  cy.get("@inputVenda").should("have.value", "2,00");
+
   cy.get("#frmTabelaProd\\:ncm").clear().type("99999999");
 }); //Preenche os campos base necessários para o cadastro de um produto.
